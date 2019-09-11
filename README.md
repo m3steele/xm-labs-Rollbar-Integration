@@ -30,76 +30,82 @@ __This integration has the following Forms/Flows__:
 
  - __Rollbar Alert__: 
         
-        - Inbound HTTP Trigger for Rollbar
         
-        Creates an xMatters event on Rollbar occurrence, new_item, exp_repeat_item, reopened_item, reactivated_item. 
-        
-        When xMatters receives an inbound Rollbar webhook for __resolved_item__ all matching xMatters events will be terminated.
-        <kbd>
-            <img src="/media/inbound_flow.png" width="600">
-        </kbd>
-        <br><br>   
-        
-        _Response Options_:
-        - __ESCALATE__: Escalates xMatters event to next oncall member.   
-        - __ASSIGN__: Assign a user to Rollbar items from xMatters alert.
-        - __RESOLVE__: Resolve a Rollbar item from xMatters alert.
-        - __MUTE__: Mute a Rollbar item from xMatters alert. This will stop additional occurances from notifying xMatters.
-        - __RESUME__: Resume a Rollbar item from xMatters alert
-        - __GET DEPLOYS__: Gets last 3 most recent deploys in Rollbar from xMatters alert.
-        - __RUN RQL__: Runs a Rollbar Query Language command from xMatters alert.
+    __Inbound HTTP Trigger for Rollbar__:
 
-       
-        - Outbound Response Triggers for ESCALATE, ASSIGN, RESOLVE, MUTE, RESUME, GET DEPLOYS and RUN RQL.
+    Creates an xMatters event on Rollbar occurrence, new_item, exp_repeat_item, reopened_item, reactivated_item. 
+
+    When xMatters receives an inbound Rollbar webhook for __resolved_item__ all matching xMatters events will be terminated.
+        
+    <kbd>
+        <img src="/media/inbound_flow.png" width="600">
+    </kbd>
+    <br><br>   
+        
+    __Response Options__:
+    - __ESCALATE__: Escalates xMatters event to next oncall member.   
+    - __ASSIGN__: Assign a user to Rollbar items from xMatters alert.
+    - __RESOLVE__: Resolve a Rollbar item from xMatters alert.
+    - __MUTE__: Mute a Rollbar item from xMatters alert. This will stop additional occurances from notifying xMatters.
+    - __RESUME__: Resume a Rollbar item from xMatters alert
+    - __GET DEPLOYS__: Gets last 3 most recent deploys in Rollbar from xMatters alert.
+    - __RUN RQL__: Runs a Rollbar Query Language command from xMatters alert.
+
+
+    __Outbound Response Triggers__: 
+
+    Triggers include for ESCALATE, ASSIGN, RESOLVE, MUTE, RESUME, GET DEPLOYS and RUN RQL.
          
-        <kbd>
-            <img src="/media/outbound_flow.png" width="600">
-        </kbd>
-        <br><br>
+    <kbd>
+        <img src="/media/outbound_flow.png" width="600">
+    </kbd>
+    <br><br>
  
  - __Recent Deploys__: Creates xMatters event with the last 3 recent deploys in Rollbar.
      
-        _Response Options_:
-        -none-
-        
-        _Flow_:
-        -none-
-  
+    __Response Options__:
+    -none-
+
+    __Flow__:
+    -none-
+
  - __Create New RQL Job__: Create xMatters event for a New RQL Job.
  
-        _Response Options_:
-        - __GET RESULTS__: Gets the results from Rollbar to the related RUN RQL response trigger.
-        
-        _Flow_:
-        - Outbound Response Triggers for GET RESULTS.
-        
+    __esponse Options__:
+    - __GET RESULTS__: Gets the results from Rollbar to the related RUN RQL response trigger.
 
-        <kbd>
-            <img src="/media/get-results.png" width="600">
-        </kbd>
-        <br><br>
+    __Flow__:
+    - Outbound Response Triggers for GET RESULTS.
+
+
+    <kbd>
+        <img src="/media/get-results.png" width="600">
+    </kbd>
+    <br><br>
         
         
  
  - __RQL Results__: Create xMatters event with the results from the related RQL Job
  
-        _Response Options_:
-        -none-
- 
+    __Response Options__:
+    -none-
+
+    __Flow__:
+    -none-
  
  - __RQL Results Not Ready__: Create xMatters event notifying user the RQL results are not ready and to try again later.
 
-        _Response Options_:
-        - __GET RESULTS__: Gets the results from Rollbar to the related RUN RQL response trigger.
-        
-        _Flow_:
-        - Outbound Response Triggers for GET RESULTS.
+    __Response Options__:
+    - __GET RESULTS__: Gets the results from Rollbar to the related RUN RQL response trigger.
 
-        <kbd>
-            <img src="/media/get-results.png" width="600">
-        </kbd>
-        <br><br>
-        
+    __Flow__:
+    - Outbound Response Triggers for GET RESULTS.
+
+    <kbd>
+        <img src="/media/get-results.png" width="600">
+    </kbd>
+    <br><br>
+
             
         
 <kbd>
@@ -109,49 +115,8 @@ __This integration has the following Forms/Flows__:
 
 
 
-A Rollbar Notification Webhook will initiate an xMatters Flow when certain conditions are met on items inside Rollbar. 
 
-__The xMatters Inbound Flow__: 
-
-This integration will create an xMatters Alert from the following Rollbar event types/names:
-
-- occurrence
-- new_item
-- exp_repeat_item
-- reopened_item
-- reactivated_item
-
-When xMatters receives an inbound webhook with event_name set to __"resolved_item"__ all matching xMatters events will be terminated.
-
-<kbd>
-    <img src="/media/terminate.png" width="600">
-</kbd>
-<br><br>
-
-__The xMatters Outbound (Response Options) Flow__: 
-
-
-
-<kbd>
-    <img src="/media/outbound_flow.png" width="600">
-</kbd>
-<br><br>
-
-
-- __Get Results__: Check the status of Rollbar RQL and get results of the RQL in xMatters.
-
-<kbd>
-    <img src="/media/get-results.png" width="600">
-</kbd>
-<br><br>
-
-
-
-
-
-
-
-- Easily add additional integrations to your xMatters Flow.
+__Easily add additional integrations to your xMatters Flow__
 
 <kbd>
     <img src="/media/customize-steps.png" width="600">
@@ -169,6 +134,14 @@ __This integration has the following xMatters Flow Steps for Rollbar Included__:
 - Update Rollbar Item Status (Rollbar)
 - Get Events (xMatters)
 - Change the Status of all Events (xMatters)
+
+
+<kbd>
+    <img src="/media/flow-steps.png" width="600">
+</kbd>
+<br><br>
+
+
 
 
 # xMatters Configuration
