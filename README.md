@@ -34,13 +34,13 @@ __This integration has the following Forms/Flows__:
     - __Inbound HTTP Trigger for Rollbar__:
 
             Creates an xMatters event on Rollbar:
-            - __occurrence__
-            - __new_item__
-            - __exp_repeat_item__
-            - __reopened_item__
-            - __reactivated_item__. 
+            - occurrence
+            - new_item
+            - exp_repeat_item
+            - reopened_item
+            - reactivated_item 
 
-            When xMatters receives an inbound Rollbar webhook for __resolved_item__ 
+            When xMatters receives an inbound Rollbar webhook for "resolved_item" 
             all matching xMatters events will be terminated.
         
         <kbd>
@@ -50,13 +50,13 @@ __This integration has the following Forms/Flows__:
         
         __Response Options__:
         
-            - __ESCALATE__: Escalates xMatters event to next oncall member.   
-            - __ASSIGN__: Assign a user to Rollbar items from xMatters alert.
-            - __RESOLVE__: Resolve a Rollbar item from xMatters alert.
-            - __MUTE__: Mute a Rollbar item from xMatters alert. This will stop additional occurances from notifying xMatters.
-            - __RESUME__: Resume a Rollbar item from xMatters alert
-            - __GET DEPLOYS__: Gets last 3 most recent deploys in Rollbar from xMatters alert.
-            - __RUN RQL__: Runs a Rollbar Query Language command from xMatters alert.
+            - ESCALATE: Escalates xMatters event to next oncall member.   
+            - ASSIGN: Assign a user to Rollbar items from xMatters alert.
+            - RESOLVE: Resolve a Rollbar item from xMatters alert.
+            - MUTE: Mute a Rollbar item from xMatters alert. This will stop additional occurances from notifying xMatters.
+            - RESUME: Resume a Rollbar item from xMatters alert
+            - GET DEPLOYS: Gets last 3 most recent deploys in Rollbar from xMatters alert.
+            - RUN RQL: Runs a Rollbar Query Language command from xMatters alert.
 
     - __Outbound Response Triggers__: 
 
@@ -67,13 +67,17 @@ __This integration has the following Forms/Flows__:
         </kbd>
         <br><br>
 
+<Br><Br>
+
 - __Recent Deploys__: 
  
     Creates xMatters event with the last 3 recent deploys in Rollbar.
      
-    __Response Options__: -none-
+    - __Response Options__: -none-
 
-    __Flow__: -none-
+    - __Flow__: -none-
+    
+<Br><Br>    
 
 - __Create New RQL Job__: 
  
@@ -101,7 +105,7 @@ __This integration has the following Forms/Flows__:
 
     - __Flow__: -none-
  
- 
+<br><br> 
  
  - __RQL Results Not Ready__: 
  
@@ -121,11 +125,12 @@ __This integration has the following Forms/Flows__:
     <br><br>
 
             
-        
+__List of Flows for this integration__:
+<br>
 <kbd>
     <img src="/media/flow_list.png" width="600">
 </kbd>
-<br><br>
+<br><br><br>
 
 
 
@@ -151,7 +156,7 @@ __This integration has the following xMatters Flow Steps for Rollbar Included__:
 
 
 <kbd>
-    <img src="/media/flow-steps.png" width="600">
+    <img src="/media/access_flow.png" width="600">
 </kbd>
 <br><br>
 
@@ -231,7 +236,7 @@ Note: Forms may already be deployed to Web Service and this step may not be nece
 2. Click on the __Rollbar Alert__ Flow.
 
 <kbd>
-    <img src="/media/access_flow.png">
+    <img src="/media/access_flow.png" width="600">
 </kbd>
 <br><br>
 
@@ -242,7 +247,7 @@ Note: Forms may already be deployed to Web Service and this step may not be nece
 </kbd>
 <br>
 <kbd>
-    <img src="/media/inbound-flow.png">
+    <img src="/media/inbound_flow.png">
 </kbd>
 <br><br>
 
@@ -255,7 +260,7 @@ You must supervise this user and it must have a Web Service User Role. If you ca
 You will need this URL for configuring Rollbar.
 
   <kbd>
-    <img src="/media/trigger_url.png">
+    <img src="/media/trigger_url.png" width="600">
   </kbd>
 
 <br><br>
@@ -281,40 +286,45 @@ _Here is an example of a customized Flow that posts to chat tool and creates a t
 
 2. Go to the **OUTPUTS** Tab and add new **Step Outputs**. Outputs are values that will be available for subsequent steps.
 
-<kbd>
-    <img src="/media/create_outputs.png" width="550px">
-</kbd>
-<br><br>
+    <kbd>
+        <img src="/media/create_outputs.png" width="550px">
+    </kbd>
+    <br><br>
 
-**Note:** The Rollbar webhook format is predefined and most values are already part of this integration with the exception of **custom data**. Custom elements can be defined when sending an item to Rollbar. The custom data will be included in the payload to xMatters. You will need to add Outputs to the xMatters Inbound HTTP Request for Rollbar Step.
-This is one of the methods that you can use to send custom recipient data to xMatters.
+    **Note:** The Rollbar webhook format is predefined and most values are already part of this integration with the exception of **custom data**. 
 
-For information on setting Rollbar custom parameter go here: https://docs.rollbar.com/reference#getting-started-1
+    Custom elements can be defined when sending an item to Rollbar. The custom data will be included in the payload to xMatters. 
 
-'''
+    You will need to add Outputs to the xMatters Inbound HTTP Request for Rollbar Step.
+
+    This is one of the methods that you can use to send custom recipient data to xMatters.
+
+    For information on setting Rollbar custom parameter go here: https://docs.rollbar.com/reference#getting-started-1
+
+```
     // Optional: custom
     // Any arbitrary metadata you want to send. "custom" itself should be an object.
     "custom": {
         "recipient": "xMatters Group",
         "your custom data" : "Custom Value"
         },
-'''
+```
 
-The integration already looks for custom.recipient values. It will take any value here and add it to a recipient object and notify them with the xMatters alert. You do not need to include this value and can add your own as desired.
+    The integration already looks for custom.recipient values. It will take any value here and add it to a recipient object and notify them with the xMatters alert. You do not need to include this value and can add your own as desired.
 
 3. Go to the **SCRIPT** tab and modify your script appropriately.
 
 - Each Output added in Step 2 will need to be mapped to a custom value in your payload. This takes the incoming value from Rollbar payload and sets the xMatters properties to hold these values.
 
-<kbd>
-    <img src="/media/custom-values.png" width="650px">
-</kbd>
-<br><br>
+    <kbd>
+        <img src="/media/custom-values.png" width="650px">
+    </kbd>
+    <br><br>
 
 __Where__:
 
-    __output['customValue01']__ - this is an output added in step 2. The output name is "New Output"
-    __var_occurrence.body.custom.Custom_Parameter01__ - this is a value in your payload with the key "Custom_Parameter01" sent to xMatters from Rollbar.
+- __output['customValue01']__ : this is an output added in step 2. The output name is "New Output".
+- __var_occurrence.body.custom.Custom_Parameter01__ : this is a value in your payload with the key "Custom_Parameter01" sent to xMatters from Rollbar.
 
 
 
@@ -327,14 +337,14 @@ __Where__:
 3. Beside Rollbar Alert Form, click **Edit** and go to **Layout**.
 
 <kbd>
-    <img src="/media/rollbar_alert_form.png">
+    <img src="/media/rollbar_alert_form.png" width="600px">
 </kbd>
 <br><br>
 
 4. Create new Properties.
 
 <kbd>
-    <img src="/media/add_property.png">
+    <img src="/media/add_property.png" width="150px">
 </kbd>
 
 5. Drag new Properties onto the Form.
@@ -396,23 +406,25 @@ See [How to Get Rollbar Access Tokens](#get-rollbar-access-tokens)
 __To access your Rollbar tokens, navigate Rollbar menus as follows__:
 
 - __Account Access Tokens__: Click User Name -> Account Settings -> Account Access Tokens.
+
 [How to Get Rolbar Account Access Tokens](https://docs.rollbar.com/reference#section-account-access-tokens)
 
     <kbd>
         <img src="/media/account.png" width="100px">
     </kbd>
     <kbd>
-        <img src="/media/aat.png" width="1000px">
+        <img src="/media/aat.png" width="100px">
     </kbd>
     <br><br>
 
 - __Project Access Tokens__: Settings -> Project Access Tokens.
+
 [How to Get Rolbar Project Access Tokens](https://docs.rollbar.com/reference#section-project-access-tokens)
     <kbd>
-        <img src="/media/settings.png" width="1000px">
+        <img src="/media/settings.png" width="100px">
     </kbd>
     <kbd>
-        <img src="/media/pat.png" width="1000px">
+        <img src="/media/pat.png" width="100px">
     </kbd>
     <br><br>
 
@@ -436,7 +448,7 @@ You should create separate rules for each event you want to send xMatters. A sep
 
 Here is how you should configure your new Webhook rule:
 
-'''
+```
 **Webhook URL**: 
 Set this to the xMatters Inbound Integration Endpoint URL.
 [Get the xMatters Inbound Integration Endpoint URL here](#get-the-xmatters-inbound-integration-endpoint-url)
@@ -449,8 +461,8 @@ For instructions on how to do this see:
 JSON
 
 **Filter**: 
-As desired
-'''
+As you desire.
+```
 
 <kbd>
     <img src="/media/settings.png" width="75px">
@@ -483,7 +495,7 @@ See Rollbar documentation for Getting Started / Create Item:
 
 When creating an item, you can add custom values to the data element. Here is an example below.
 
-'''
+```
 {
 	"access_token": "c16d776575df",
 
@@ -501,7 +513,7 @@ When creating an item, you can add custom values to the data element. Here is an
 				 "custom": {"recipients":"Admin Group"}
              }
 }
-'''
+```
 
 The integration is configured to look for the recipients custom element and will add any users / groups listed here as recipients in the xMatters event.
 
